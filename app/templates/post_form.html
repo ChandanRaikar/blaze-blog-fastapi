@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{% if mode == 'edit' %}Edit post{% else %}New post{% endif %} · Blazing Blog{% endblock %}
+{% block content %}
+<section class="animate-rise mx-auto max-w-2xl">
+  <h1 class="font-display text-3xl font-bold text-ink-900">
+    {% if mode == 'edit' %}Edit post{% else %}New post{% endif %}
+  </h1>
+  <p class="mt-2 text-ink-700">
+    {% if mode == 'edit' %}Update your post and save.{% else %}Share something worth reading.{% endif %}
+  </p>
+
+  {% if error %}
+  <p class="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">{{ error }}</p>
+  {% endif %}
+
+  <form
+    method="post"
+    action="{% if mode == 'edit' %}/posts/{{ post.id }}/edit{% else %}/posts/new{% endif %}"
+    class="mt-8 space-y-5"
+  >
+    <div>
+      <label for="title" class="block text-sm font-medium text-ink-800">Title</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        required
+        maxlength="200"
+        value="{{ post.title if post else '' }}"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      />
+    </div>
+    <div>
+      <label for="body" class="block text-sm font-medium text-ink-800">Body</label>
+      <textarea
+        id="body"
+        name="body"
+        required
+        rows="12"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      >{{ post.body if post else '' }}</textarea>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="submit"
+        class="rounded-md bg-ember-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ember-700 transition-colors"
+      >
+        {% if mode == 'edit' %}Save changes{% else %}Publish{% endif %}
+      </button>
+      <a
+        href="{% if mode == 'edit' %}/posts/{{ post.id }}{% else %}/{% endif %}"
+        class="rounded-md px-4 py-2.5 text-sm font-semibold text-ink-700 hover:text-ember-600 transition-colors"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</section>
+{% endblock %}

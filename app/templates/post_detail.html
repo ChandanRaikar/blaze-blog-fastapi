@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} · Blazing Blog{% endblock %}
+{% block content %}
+<article class="animate-rise">
+  <p class="text-sm text-slate-500">
+    <a href="/" class="hover:text-ember-600 transition-colors">← All posts</a>
+  </p>
+  <h1 class="mt-4 font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink-900">
+    {{ post.title }}
+  </h1>
+  <p class="mt-3 text-sm text-slate-500">
+    {{ post.author.username }}
+    · {{ post.created_at.strftime('%b %d, %Y') }}
+    {% if post.updated_at and post.updated_at != post.created_at %}
+      · updated {{ post.updated_at.strftime('%b %d, %Y') }}
+    {% endif %}
+  </p>
+
+  <div class="mt-8 whitespace-pre-wrap text-lg leading-relaxed text-ink-800">{{ post.body }}</div>
+
+  {% if can_manage %}
+  <div class="mt-10 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-6">
+    <a
+      href="/posts/{{ post.id }}/edit"
+      class="rounded-md bg-ember-600 px-4 py-2 text-sm font-semibold text-white hover:bg-ember-700 transition-colors"
+    >
+      Edit
+    </a>
+    <form
+      action="/posts/{{ post.id }}/delete"
+      method="post"
+      onsubmit="return confirm('Delete this post?');"
+    >
+      <button
+        type="submit"
+        class="rounded-md px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50 transition-colors"
+      >
+        Delete
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</article>
+{% endblock %}

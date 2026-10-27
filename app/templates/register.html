@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Sign up · Blazing Blog{% endblock %}
+{% block content %}
+<section class="animate-rise mx-auto max-w-md">
+  <h1 class="font-display text-3xl font-bold text-ink-900">Sign up</h1>
+  <p class="mt-2 text-ink-700">Create an account and start posting.</p>
+
+  {% if error %}
+  <p class="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">{{ error }}</p>
+  {% endif %}
+
+  <form method="post" action="/register" class="mt-8 space-y-5">
+    <div>
+      <label for="username" class="block text-sm font-medium text-ink-800">Username</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        required
+        minlength="3"
+        maxlength="50"
+        autocomplete="username"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      />
+    </div>
+    <div>
+      <label for="email" class="block text-sm font-medium text-ink-800">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      />
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium text-ink-800">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        required
+        minlength="6"
+        autocomplete="new-password"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      />
+    </div>
+    <div>
+      <label for="password_confirm" class="block text-sm font-medium text-ink-800">Confirm password</label>
+      <input
+        id="password_confirm"
+        name="password_confirm"
+        type="password"
+        required
+        minlength="6"
+        autocomplete="new-password"
+        class="mt-1.5 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm focus:border-ember-500 focus:outline-none focus:ring-2 focus:ring-ember-500/30"
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full rounded-md bg-ember-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ember-700 transition-colors"
+    >
+      Create account
+    </button>
+  </form>
+
+  <p class="mt-6 text-sm text-ink-700">
+    Already have an account?
+    <a href="/login" class="font-semibold text-ember-600 hover:text-ember-700">Log in</a>
+  </p>
+</section>
+{% endblock %}
